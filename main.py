@@ -1,8 +1,17 @@
+# Boglarka
 def encode_password(password):
     new_password = ""
     for digit in password:
         new_digit_value = int(digit) + 3
-        new_password += str(new_digit_value)
+        new_password += str(new_digit_value % 10)  # Allows digits > 9 to loop down
+    return new_password
+
+
+def decode_password(password):
+    new_password = ""
+    for digit in password:
+        new_digit_value = int(digit) - 3
+        new_password += str((new_digit_value + 10) % 10)  # Allows negatives to loop back up
     return new_password
 
 
@@ -17,7 +26,8 @@ def menu_display():
             stored_password = encode_password(user_password)
             print("Your password has been encoded and stored!\n")
         if menu_option == "2":
-            print(f"The encoded password is {stored_password}, and the original password is {user_password}.\n")
+            print(f"The encoded password is {stored_password}, "
+                  f"and the original password is {decode_password(stored_password)}.\n")
         if menu_option == "3":
             break
 
